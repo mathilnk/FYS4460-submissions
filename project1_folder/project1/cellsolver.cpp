@@ -106,7 +106,7 @@ void CellSolver::solve(double t_start, int timesteps, double dt, string filename
     if(writeMeasurements){
         //////cout<<filename<<endl;
         writeMeasurementsToFile(filename+"_energy.txt");
-        //writeRadialToFile(filename+current_time_step_string+"_radial.txt");
+        writeRadialToFile(filename+current_time_step_string+"_radial.txt");
 
     }
     cout<<(stop-start)/CLOCKS_PER_SEC<< " s for Cell solver"<<endl;
@@ -167,6 +167,7 @@ void CellSolver::solve_one_time_step(double t, double dt, string filename, bool 
     AtomNode* currentNode;
     Atom* atm;
     pressure_sum = 0;
+
 
     //double temp = measureTemp();
 //    measureMeanSquareDisplacement();
@@ -262,7 +263,7 @@ void CellSolver::solve_one_time_step(double t, double dt, string filename, bool 
 
     double temp = measureTemp();
     measureMeanSquareDisplacement();
-    //findRadial();
+    findRadial();
     d_pressure = myContainer->numberOfAtoms*temp/volume + 1/(3*volume)*pressure_sum;
     //cout<<"pressure sum: "<< 1/(3*volume)*pressure_sum<<endl;
     //cout<<"pressure constant: "<<myContainer->numberOfAtoms*temp/volume<<endl;
@@ -642,7 +643,9 @@ vec CellSolver::findRadial(){
             if(index>maxIndex){
                 maxIndex = index;
             }
-            radial_distribution[index]+=1;
+            double v = 4*pi*(index*binSize)*(index*binSize)*binSize;
+            //cout<<binSize*L0<<endl;
+            radial_distribution[index]+=1/v;
 
         }
     }

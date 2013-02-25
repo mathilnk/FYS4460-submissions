@@ -7,7 +7,7 @@ ThermostatTest::ThermostatTest()
     //runBUpDown(300,2,200,200);
     //runWithoutThermo();
     //varyTmeasureP(200,1000, 20);
-    varyTmeasureP(700,700, 1);
+    varyTmeasureP(350,350, 1);
 
 
 }
@@ -91,7 +91,7 @@ void ThermostatTest::runWithoutThermo(){
     int Nx = 8, Ny = 8, Nz = 8;
     int CellNx, CellNy, CellNz;
     double b = 5.26;
-    double T = 100;
+    double T = 300;
     CellNx = Nx*b/r_cut;
     //CellNx = 1;
     CellNy = CellNx;
@@ -100,10 +100,10 @@ void ThermostatTest::runWithoutThermo(){
     string element = "Ar";
     double dt = 0.01;
 
-    double numOfTimeSteps=1;
+    double numOfTimeSteps=199;
     bool writeVMD = false;
     bool writeMeasurements = true;
-    string filename1 = "testTo";
+    string filename1 = "testTo1";
     bool Berendsen = false;
     bool Andersen = false;
     double T_bath=0;
@@ -139,8 +139,8 @@ void ThermostatTest::varyTmeasureP(double T_start, double T_stop, int numOfPlots
     vec temps = linspace(T_start,T_stop, numOfPlots);
 
     double T_bath;
-    int max_time_step = numOfPlots*400;
-    int numOfTimeStepsNOTHERMO = 330;
+    int max_time_step = numOfPlots*200;
+    int numOfTimeStepsNOTHERMO = 130;
     int numOfTimeStepsWITHTHERMO = 70;
     int tot_time = numOfTimeStepsNOTHERMO + numOfTimeStepsWITHTHERMO;
 
